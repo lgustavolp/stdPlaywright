@@ -1,6 +1,6 @@
 # Study Playwright
 
-Sample project for the create some test cases using Playwright (Parodify Project)
+Sample Project Study for the create some test cases using Playwright + TypeScript (Parodify Project)
 
 ## Pre-requirements
 
