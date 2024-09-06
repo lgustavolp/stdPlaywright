@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('deve tocar uma musica', async ({ page }) => {
+test('must play a song', async ({ page }) => {
 
   const song = {
     id: 1,

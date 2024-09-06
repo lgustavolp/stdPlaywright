@@ -14,7 +14,19 @@ Then Install PLAYWRIGHT in the Project Folder (`npm init playwright@latest`)
 
 ## Tests
 
-You can run the tests simulating a desktop or mobile viewport.
+'''
+npx playwright test --ui
+
+npx playwright test --headed (Open the browser definied in the config file)
+
+npx playwright test <HEADLESS>
+
+'''
+
+## GitHub Actions
+
+* Run WEB Tests - Automatic execution after each pull request.
+
 
 ## Support this project
 
