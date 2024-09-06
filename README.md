@@ -14,14 +14,14 @@ Then Install PLAYWRIGHT in the Project Folder (`npm init playwright@latest`)
 
 ## Tests
 
-'''
+```
 npx playwright test --ui
 
 npx playwright test --headed (Open the browser definied in the config file)
 
 npx playwright test <HEADLESS>
 
-'''
+```
 
 ## GitHub Actions
 
