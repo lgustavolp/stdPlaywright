@@ -36,3 +36,25 @@ jobs:
       - name: Run Playwright Tests
         run: |
           npx playwright test
+
+      - name: Upload Tests Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: 
+          name: ${{matrix.browser}}
+          path: ./results
+          if-no-files-found: ignore
+          retention-days: 2 
+
+      - name: Download Results
+        if: always()
+        uses: actions/download-artifact@v4
+        with: 
+          name: ${{matrix.browser}}
+
+      - name: Send Report
+        if: always()
+        uses: joonvena/robotframework-reporter-action@v2.5
+        with: 
+          gh_access_token: ${{ secrets.github_token }}
+          report_path: ./results
