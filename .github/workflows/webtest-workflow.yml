@@ -1,56 +1,32 @@
-name: Run WEB Tests
-run-name: On Push - Web Tests Run
-on: [push]
+name: Playwright Tests
+
+on:
+  push:
+    branches:
+      - main  # Ou o branch que você deseja monitorar
 
 jobs:
-    web-tests:
-        runs-on: ubuntu-20.04
-        permissions: write-all
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-              
-            - name: Install Python 3.10
-              uses: actions/setup-python@v5
-              with:
-                python-version: '3.10'
+  test:
+    runs-on: ubuntu-latest
 
-            - name: Install Node.js 20
-              uses: actions/setup-node@v4
-              with:
-                node-version: '20'
+    steps:
+      # Checkout do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-            - name: Install Requirements
-              run: |
-                python -m pip install --upgrade pip
-                pip install -U -r requirements.txt
-                git config --global url."https://".insteadOf git://
-                sudo npm install playwright/test
-                sudo npx playwright install-deps
-                rfbrowser init
+      # Configurar o Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Você pode ajustar a versão do Node.js, se necessário
 
-            - name: Runn RF WEB Tests
-              run: |
-                npx playwright test
-            
-            - name: Upload Tests Results
-              if: always()
-              uses: actions/upload-artifact@v4
-              with: 
-                name: ${{matrix.browser}}
-                path: ./results
-                if-no-files-found: ignore
-                retention-days: 2 
-            
-            - name: Download Results
-              if: always()
-              uses: actions/download-artifact@v4
-              with: 
-                name: ${{matrix.browser}}
-            
-            - name: Send Report
-              if: always()
-              uses: joonvena/robotframework-reporter-action@v2.5
-              with: 
-                gh_access_token: ${{ secrets.github_token }}
-                report_path: ./results
+      # Instalar dependências
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install-deps
+
+      # Rodar os testes do Playwright
+      - name: Run Playwright Tests
+        run: |
+          npx playwright test
