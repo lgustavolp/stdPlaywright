@@ -1,4 +1,5 @@
 name: Playwright Tests
+run-name: On Push - Web Tests Run
 
 on:
   push:
@@ -6,7 +7,7 @@ on:
       - main  # Ou o branch que você deseja monitorar
 
 jobs:
-  test:
+  web-tests:
     runs-on: ubuntu-latest
 
     steps:
